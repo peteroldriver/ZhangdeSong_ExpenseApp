@@ -9,4 +9,15 @@
         <item>AUTOMOTIVE</item>
         <item>MISC</item>
     </string-array>
+    <string-array name="expense_category2">
+        <item>Please Select a Category</item>
+        <item>ALL</item>
+        <item>FOOD</item>
+        <item>ENTERTAINMENT</item>
+        <item>HOUSING</item>
+        <item>UTILITIES</item>
+        <item>FUEL</item>
+        <item>AUTOMOTIVE</item>
+        <item>MISC</item>
+    </string-array>
 </resources>

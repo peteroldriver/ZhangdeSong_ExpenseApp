@@ -21,4 +21,9 @@ interface CrimeDao {
 
     @Insert
     suspend fun addCrime(crime: Crime)
+
+    @Query("SELECT * FROM crime WHERE category=(:category)")
+    fun getCrimesByCategory(category: String): Flow<List<Crime>>
 }
+
+

@@ -1,5 +1,6 @@
 package com.bignerdranch.android.criminalintent
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,12 +14,24 @@ class CrimeListViewModel : ViewModel() {
 
     private val _crimes: MutableStateFlow<List<Crime>> = MutableStateFlow(emptyList())
     val crimes: StateFlow<List<Crime>>
-        get() = _crimes.asStateFlow()
+    get() = _crimes.asStateFlow()
 
-    init {
+    fun init1() {
         viewModelScope.launch {
             crimeRepository.getCrimes().collect {
+                Log.d("TAG", "Fetch All")
                 _crimes.value = it
+                Log.d("TAG", "Fetched Data Size: ${it.size}")
+            }
+        }
+    }
+
+    fun collectCrimesByCategory(category : String) {
+        Log.d("TAG", "Fetch Category: $category")
+        viewModelScope.launch {
+            crimeRepository.getCrimesByCategory(category).collect {
+                _crimes.value = it
+                Log.d("TAG", "Fetched Data Size: ${it.size}")
             }
         }
     }

@@ -13,6 +13,13 @@
         <action
             android:id="@+id/show_crime_detail"
             app:destination="@id/crimeDetailFragment" />
+        <action
+            android:id="@+id/action_crimeListFragment_self"
+            app:destination="@id/crimeListFragment" />
+        <argument
+            android:name="type"
+            app:argType="string"
+            android:defaultValue="ALL" />
     </fragment>
     <fragment
         android:id="@+id/crimeDetailFragment"

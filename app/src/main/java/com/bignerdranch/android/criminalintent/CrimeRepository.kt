@@ -26,6 +26,8 @@ class CrimeRepository private constructor(
 
     fun getCrimes(): Flow<List<Crime>> = database.crimeDao().getCrimes()
 
+    fun getCrimesByCategory(category : String): Flow<List<Crime>> = database.crimeDao().getCrimesByCategory(category)
+
     suspend fun getCrime(id: UUID): Crime = database.crimeDao().getCrime(id)
 
     fun updateCrime(crime: Crime) {
