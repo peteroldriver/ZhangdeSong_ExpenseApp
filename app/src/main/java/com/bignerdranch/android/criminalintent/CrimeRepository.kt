@@ -7,6 +7,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
+import java.util.Date
 import java.util.UUID
 
 private const val DATABASE_NAME = "crime-database"
@@ -27,6 +28,8 @@ class CrimeRepository private constructor(
     fun getCrimes(): Flow<List<Crime>> = database.crimeDao().getCrimes()
 
     fun getCrimesByCategory(category : String): Flow<List<Crime>> = database.crimeDao().getCrimesByCategory(category)
+
+    fun getCrimesByDate(date: Date): Flow<List<Crime>> = database.crimeDao().getCrimesByDate(date)
 
     suspend fun getCrime(id: UUID): Crime = database.crimeDao().getCrime(id)
 

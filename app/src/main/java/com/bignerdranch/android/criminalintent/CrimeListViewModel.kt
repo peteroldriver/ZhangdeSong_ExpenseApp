@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import java.util.Date
 
 class CrimeListViewModel : ViewModel() {
     private val crimeRepository = CrimeRepository.get()
@@ -30,6 +31,16 @@ class CrimeListViewModel : ViewModel() {
         Log.d("TAG", "Fetch Category: $category")
         viewModelScope.launch {
             crimeRepository.getCrimesByCategory(category).collect {
+                _crimes.value = it
+                Log.d("TAG", "Fetched Data Size: ${it.size}")
+            }
+        }
+    }
+
+    fun collectCrimesByDate(date: Date) {
+        Log.d("TAG", "Fetch Category: $date")
+        viewModelScope.launch {
+            crimeRepository.getCrimesByDate(date).collect {
                 _crimes.value = it
                 Log.d("TAG", "Fetched Data Size: ${it.size}")
             }

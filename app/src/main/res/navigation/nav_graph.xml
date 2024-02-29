@@ -16,10 +16,18 @@
         <action
             android:id="@+id/action_crimeListFragment_self"
             app:destination="@id/crimeListFragment" />
+        <action
+        android:id="@+id/action_crimeListFragment_to_datePickerFragment"
+        app:destination="@id/datePickerFragment" />
         <argument
             android:name="type"
             app:argType="string"
             android:defaultValue="ALL" />
+        <argument
+            android:name="dateSelected"
+            app:argType="java.util.Date"
+            app:nullable="true"
+            android:defaultValue="@null"/>
     </fragment>
     <fragment
         android:id="@+id/crimeDetailFragment"
@@ -40,5 +48,8 @@
         <argument
             android:name="crimeDate"
             app:argType="java.util.Date" />
+        <action
+            android:id="@+id/action_datePickerFragment_to_crimeListFragment"
+            app:destination="@id/crimeListFragment" />
     </dialog>
 </navigation>

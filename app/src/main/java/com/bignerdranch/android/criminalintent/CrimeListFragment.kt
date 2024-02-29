@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -37,6 +38,7 @@ class CrimeListFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     private val crimeListViewModel: CrimeListViewModel by viewModels()
     private lateinit var categoryList: List<String>
+    private lateinit var date: Date
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d("TAG", "OnCreate()")
@@ -65,13 +67,45 @@ class CrimeListFragment : Fragment(), AdapterView.OnItemSelectedListener {
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             // Apply the adapter to the spinner.
             binding.crimeCategorySearch.adapter = adapter
-            if(args.type == "ALL"){
-                crimeListViewModel.init1()
+            if(args.dateSelected != null){
+                crimeListViewModel.collectCrimesByDate(args.dateSelected as Date)
             }
-            else(crimeListViewModel.collectCrimesByCategory(args.type))
+            else{
+                if(args.type == "ALL"){
+                    crimeListViewModel.init1()
+                }
+                else(crimeListViewModel.collectCrimesByCategory(args.type))
+            }
+        }
+        binding.crimeCategorySearch.onItemSelectedListener = this
+        //Date Selector
+        date = Date()
+        binding.crimeDateSearch.setOnClickListener {
+            findNavController().navigate(
+                CrimeListFragmentDirections.actionCrimeListFragmentToDatePickerFragment(date)
+            )
         }
 
-        binding.crimeCategorySearch.onItemSelectedListener = this
+        setFragmentResultListener(
+            DatePickerFragment.REQUEST_KEY_DATE
+        ) { _, bundle ->
+            val newDate =
+                bundle.getSerializable(DatePickerFragment.BUNDLE_KEY_DATE) as Date
+            if(date == newDate){Log.d("Date Debug", "Same Date Selected")}
+            else{
+                crimeListViewModel.collectCrimesByDate(newDate)
+                Log.d("Date Debug", "Date Selected$newDate")
+                findNavController().navigate(DatePickerFragmentDirections.actionDatePickerFragmentToCrimeListFragment("ALL", newDate))
+            }
+        }
+
+        binding.crimeDateCancel.setOnClickListener {
+            crimeListViewModel.init1()
+            findNavController().navigate(CrimeListFragmentDirections.actionCrimeListFragmentSelf("ALL",null))
+        }
+        binding.crimeDateSearch.text = date.toString()
+        binding.crimeDateCancel.text = "ClEAR SELECTION"
+
         return binding.root
     }
 
@@ -139,11 +173,11 @@ class CrimeListFragment : Fragment(), AdapterView.OnItemSelectedListener {
         if(position == 0){}
         else if(position == 1){
             crimeListViewModel.init1()
-            findNavController().navigate(CrimeListFragmentDirections.actionCrimeListFragmentSelf(categoryList[position]))
+            findNavController().navigate(CrimeListFragmentDirections.actionCrimeListFragmentSelf(categoryList[position],null))
         }
         else {
             crimeListViewModel.collectCrimesByCategory(categoryList[position])
-            findNavController().navigate(CrimeListFragmentDirections.actionCrimeListFragmentSelf(categoryList[position]))
+            findNavController().navigate(CrimeListFragmentDirections.actionCrimeListFragmentSelf(categoryList[position],null))
         }
     }
 

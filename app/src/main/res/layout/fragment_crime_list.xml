@@ -5,11 +5,11 @@
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-<androidx.recyclerview.widget.RecyclerView
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/crime_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="@+id/crime_category_search" />
 
     <androidx.appcompat.widget.AppCompatSpinner
         android:id="@+id/crime_category_search"
@@ -20,6 +20,25 @@
         android:inputType="text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/crime_date_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/crime_category_search"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="Wed May 11 11:56 EST 2022" />
+
+    <Button
+        android:id="@+id/crime_date_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+
+        app:layout_constraintBottom_toTopOf="@+id/crime_date_search"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="Clear Time Selection" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

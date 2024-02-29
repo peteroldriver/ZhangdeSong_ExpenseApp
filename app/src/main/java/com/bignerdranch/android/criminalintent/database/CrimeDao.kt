@@ -6,6 +6,7 @@ import androidx.room.Query
 import androidx.room.Update
 import com.bignerdranch.android.criminalintent.Crime
 import kotlinx.coroutines.flow.Flow
+import java.util.Date
 import java.util.UUID
 
 @Dao
@@ -24,6 +25,10 @@ interface CrimeDao {
 
     @Query("SELECT * FROM crime WHERE category=(:category)")
     fun getCrimesByCategory(category: String): Flow<List<Crime>>
+
+
+    @Query("SELECT * FROM crime WHERE date=(:date)")
+    fun getCrimesByDate(date: Date): Flow<List<Crime>>
 }
 
 
