@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
 
         app:layout_constraintBottom_toTopOf="@+id/crime_category_search"
-        app:layout_constraintStart_toEndOf="@+id/crime_date_search"
+        app:layout_constraintEnd_toEndOf="parent"
         tools:text="Clear Selection" />
 
 

@@ -104,7 +104,7 @@ class CrimeListFragment : Fragment(), AdapterView.OnItemSelectedListener {
             crimeListViewModel.init1()
             findNavController().navigate(CrimeListFragmentDirections.actionCrimeListFragmentSelf("ALL",null))
         }
-        binding.crimeDateSearch.text = date.toString()
+        binding.crimeDateSearch.text = "SELECT DATE"
         binding.crimeDateCancel.text = "ClEAR SELECTION"
 
         return binding.root
