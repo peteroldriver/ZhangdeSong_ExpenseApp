@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
@@ -72,7 +73,13 @@ class CrimeDetailFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
             crimeAmount.doOnTextChanged { text, _, _, _ ->
                 crimeDetailViewModel.updateCrime { oldCrime ->
-                    oldCrime.copy(amount = text.toString().toInt())
+                    try {
+                        oldCrime.copy(amount = text.toString().toInt())
+                    }
+                    catch (e: Exception){
+                        Toast.makeText(requireContext(), "Invalid Integer Input for Amount", Toast.LENGTH_SHORT).show()
+                        oldCrime.copy(amount = 0)
+                    }
                 }
             }
         }

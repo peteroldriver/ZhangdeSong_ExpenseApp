@@ -80,6 +80,7 @@ class CrimeListFragment : Fragment(), AdapterView.OnItemSelectedListener {
         binding.crimeCategorySearch.onItemSelectedListener = this
         //Date Selector
         date = Date()
+
         binding.crimeDateSearch.setOnClickListener {
             findNavController().navigate(
                 CrimeListFragmentDirections.actionCrimeListFragmentToDatePickerFragment(date)
